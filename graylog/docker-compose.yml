@@ -1,0 +1,45 @@
+# graylog
+version: '3'
+services:
+  mongo:
+    image: mongo:4.4.21
+    networks:
+      - graylog
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2
+    environment:
+      - http.host=0.0.0.0
+      - transport.host=localhost
+      - network.host=0.0.0.0
+      - "ES_JAVA_OPTS=-Dlog4j2.formatMsgNoLookups=true -Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    mem_limit: 1g
+    networks:
+      - graylog
+  graylog:
+    image: graylog/graylog:4.3
+    environment:
+    # to generate the password hash use the following command:
+    # echo <your_password> | tr -d '\n' | sha256sum | awk '{print $1}'
+      - GRAYLOG_PASSWORD_SECRET=superstrongandsecure
+      - GRAYLOG_ROOT_PASSWORD_SHA2=a2353eb71e33364080d577e45fdc4e344e86e12c19706b351ccdb6fb4cd8814e
+      - GRAYLOG_HTTP_EXTERNAL_URI=http://127.0.0.1:9000/
+    entrypoint: /usr/bin/tini -- wait-for-it elasticsearch:9200 --  /docker-entrypoint.sh
+    networks:
+      - graylog
+    restart: always
+    depends_on:
+      - mongo
+      - elasticsearch
+    ports:
+      - 9000:9000
+      - 1514:1514
+      - 1514:1514/udp
+      - 12201:12201
+      - 12201:12201/udp
+networks:
+    graylog:
+      driver: bridge
