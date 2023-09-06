@@ -1,11 +1,8 @@
 # dockerfile cronguard daemon
-FROM ubuntu:22.04
+FROM alpine:latest
 LABEL maintainer "andreaswendlandt.79@googlemail.com"
 RUN mkdir -p /opt/cronguard && \
-    apt-get update && \
-    apt-get install -y mysql-client && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    apk add --no-cache bash mysql-client
 COPY cronguard.sh /opt/cronguard
 COPY db.inc.sh /opt/cronguard
 COPY start_cronguard.sh /opt/cronguard
