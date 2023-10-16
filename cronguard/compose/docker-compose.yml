@@ -1,0 +1,18 @@
+version: '3'
+services:
+  cronguard_web:
+    build: ../webserver
+    ports:
+      - "8080:80"
+    links:
+      - cronguard_db
+    
+  cronguard_db:
+    build: ../database
+    
+  cronguard_daemon:
+    build: ../daemon
+    links:
+      - cronguard_db
+    volumes:
+      - ../daemon/log/:/var/log
