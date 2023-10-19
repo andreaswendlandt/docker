@@ -56,6 +56,12 @@ mkdir <your_local_log_dir>
 docker run -d -v <path_to_your_local_log_dir>/:/var/log --link cronguard_db:cronguard_db --network=cronguard_net --name cronguard_daemon cronguard_daemon
 ```
 
+### compose file
+or even easier, to bring up all containers use the compose file, for that keep in mind that you need the directories database, webserver, daemon AND compose, within the compose directory run:
+```
+docker compose up
+```
+
 ## how to use it
 copy the client directory to your desired location and adapt the two scripts in it
 
