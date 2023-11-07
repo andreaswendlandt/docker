@@ -1,18 +1,18 @@
 version: '3'
 services:
-  cronguard_web:
-    image: 'andreaswendlandt/cronguard_webserver:latest'
+  cronguard-web:
+    image: 'andreaswendlandt/cronguard-web:latest'
     ports:
       - "8080:80"
     links:
-      - cronguard_db
+      - cronguard-db
     
-  cronguard_db:
-    image: 'andreaswendlandt/cronguard_database:latest'
+  cronguard-db:
+    image: 'andreaswendlandt/cronguard-db:latest'
     
-  cronguard_daemon:
-    image: 'andreaswendlandt/cronguard_daemon:latest'
+  cronguard-daemon:
+    image: 'andreaswendlandt/cronguard-daemon:latest'
     links:
-      - cronguard_db
+      - cronguard-db
     volumes:
       - ../daemon/log/:/var/log
