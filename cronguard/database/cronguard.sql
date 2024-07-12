@@ -6,6 +6,5 @@ CREATE TABLE jobs ( jobid INT NOT NULL AUTO_INCREMENT, token CHAR(6), host VARCH
 
 CREATE USER 'cronguard'@'%' IDENTIFIED BY 'top_secret';
 GRANT ALL ON cronguard.* TO 'cronguard'@'%';
-ALTER USER 'cronguard'@'%' IDENTIFIED WITH mysql_native_password BY 'top_secret';
 
 FLUSH PRIVILEGES;
