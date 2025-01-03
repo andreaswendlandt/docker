@@ -1,14 +1,20 @@
 # jenkins 
-version: '3'
 services:
-  jenkins:
-    build: .
+  jenkins_master:
+    build: ./master
     privileged: true
     user: root
     restart: always
     ports:
       - 8082:8080
-    container_name: myjenkins
+    container_name: myjenkins_master
     volumes:
       - ./jenkins:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
+
+  jenkins_slave:
+    build: ./slave
+    privileged: true
+    user: root
+    tty: true
+    container_name: myjenkins_slave
