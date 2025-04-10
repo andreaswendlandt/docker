@@ -71,7 +71,7 @@ url="http://localhost:8080/cronguard.php"
 ```
 adapt the script cron_wrapper.sh and change the following line according to the location of the url.inc.sh file
 ```
-if ! source url.inc.sh 2>/dev/null; then
+if ! source /opt/cronguard/url.inc.sh 2>/dev/null; then
 ```
 now whatever you run with the cron_wrapper.sh script will be evaluated by cronguard:
 ```
