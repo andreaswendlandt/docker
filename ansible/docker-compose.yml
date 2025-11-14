@@ -1,0 +1,24 @@
+# ansible
+services:
+  ansible_master:
+    build: ./ansible_master
+    privileged: true
+    user: root
+    container_name: ansible_master
+    volumes:
+      - ./ansible:/etc/ansible
+    tty: true
+
+  ansible_node_one:
+    build: ./ansible_node
+    privileged: true
+    user: root
+    container_name: debian_one
+    tty: true
+
+  ansible_node_two:
+    build: ./ansible_node
+    privileged: true
+    user: root
+    container_name: debian_two
+    tty: true
