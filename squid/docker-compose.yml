@@ -1,0 +1,17 @@
+# squid
+services:
+  squid_proxy:
+    image: ubuntu/squid:latest
+    privileged: true
+    user: root
+    container_name: squid
+    volumes:
+      - ./squid:/etc/squid
+    tty: true
+
+  web_client:
+    build: ./web_client
+    privileged: true
+    user: root
+    container_name: web_client
+    tty: true
