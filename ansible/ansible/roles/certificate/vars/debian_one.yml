@@ -1,0 +1,6 @@
+certificate_key_file:
+  - foobar.key
+certificate_file: 
+  - foobar1.crt
+  - foobar2.crt
+  - foobar3.crt

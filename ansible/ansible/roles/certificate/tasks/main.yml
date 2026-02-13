@@ -1,0 +1,23 @@
+---
+- name: include host specific file
+  include_vars: "{{ inventory_hostname }}.yml"
+
+- name: copy keyfile
+  copy:
+    src: /etc/ansible/keys/{{ item }}
+    dest: /tmp
+    backup: yes
+  loop: "{{ certificate_key_file }}"
+  notify:
+    - reload nginx
+  when: certificate_file is defined and certificate_key_file is defined
+
+- name: copy certfile
+  copy:
+    src: /etc/ansible/certs/{{ item }}
+    dest: /tmp
+    backup: yes
+  loop: "{{ certificate_file }}"
+  notify:
+    - reload nginx
+  when: certificate_file is defined and certificate_key_file is defined
