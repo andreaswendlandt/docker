@@ -1,0 +1,24 @@
+---
+- name: include host specific file
+  include_vars: "{{ inventory_hostname }}.yml"
+
+- name: copy keyfile
+  copy:
+    src: /etc/ansible/keys/{{ certificate_key_file }}
+    dest: /tmp
+#  notify:
+#    - reload nginx
+
+- name: copy certfile
+  copy:
+    src: /etc/ansible/certs/{{ certificate_file }}
+    dest: /tmp
+#  notify:
+#    - reload nginx
+
+- name: copy all keys
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/ssl/private"
+  with_fileglob:
+    - "/etc/ansible/keys/{{ inventory_hostname }}/*.key"
