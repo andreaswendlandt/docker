@@ -10,6 +10,8 @@ RUN groupadd -g 1000 ansible && \
     apt-get update && \
     apt-get install -y python3 && \
     apt-get install -y ssh && \
+    apt-get install -y sudo && \
     rm -rf /tmp/* /var/tmp/* /var/lib/apt/archive/* /var/lib/apt/lists/*
+COPY 000-ansible /etc/sudoers.d/
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
