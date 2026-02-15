@@ -6,15 +6,15 @@
   copy:
     src: /etc/ansible/keys/{{ certificate_key_file }}
     dest: /tmp
-#  notify:
-#    - reload nginx
+  notify:
+    - reload nginx
 
 - name: copy certfile
   copy:
     src: /etc/ansible/certs/{{ certificate_file }}
     dest: /tmp
-#  notify:
-#    - reload nginx
+  notify:
+    - reload nginx
 
 - name: copy all keys
   copy:
@@ -22,3 +22,6 @@
     dest: "/etc/ssl/private"
   with_fileglob:
     - "/etc/ansible/keys/{{ inventory_hostname }}/*.key"
+  notify:
+    - reload nginx
+
